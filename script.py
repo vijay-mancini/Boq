@@ -1,4 +1,4 @@
-
+#https://dn790003.ca.archive.org/0/items/BuildingSurveysAndReports/Elements_of_Quantity_Surveying.pdf
 from pyrevit import revit, forms
 
 from lib.boq.extractor import extract_elements
