@@ -1,0 +1,297 @@
+# Project: Automated Revit-Based Substructure BOQ Generation System
+
+## 1. Role and Expertise
+
+Act as a Senior BIM Engineer, Quantity Surveyor, Civil/Structural Engineer, and Revit API Automation Developer.
+
+Your task is to design and develop a reliable, rule-based BOQ generation system that extracts information directly from Autodesk Revit models and generates construction BOQ according to the measurement standards and reference book provided by me.
+
+Do not assume standard measurement rules without checking my reference book.
+
+## 2. Reference Materials
+
+I will provide:
+
+1. **Reference Book:** [I will provide the book URL]
+2. **Sample BOQ / Calculation Example:** [I will upload an example]
+3. **Revit Model:** A sample or actual Revit project containing architectural and structural elements.
+
+Your first responsibility is to study the reference book and sample BOQ carefully.
+
+Extract and document:
+- Measurement rules.
+- Measurement units.
+- Item descriptions.
+- Classification of work.
+- Quantity calculation methods.
+- Deductions and exclusions.
+- Measurement conventions.
+- Rounding rules.
+- Required BOQ formatting.
+
+The reference book must be treated as the primary authority. The sample BOQ should be used to understand the expected output and calculation presentation.
+
+If the sample and reference book contradict each other, identify the conflict and ask for clarification.
+
+## 3. Primary Objective
+
+Develop a system that automatically generates a detailed Substructure BOQ from a Revit model.
+
+The system must:
+
+- Read the Revit model.
+- Identify relevant structural and architectural elements.
+- Extract their parameters and geometric information.
+- Classify elements into appropriate BOQ work categories.
+- Apply the measurement rules from the reference book.
+- Calculate quantities.
+- Generate detailed item descriptions.
+- Produce an organized BOQ in Excel format.
+
+The system must not invent quantities or assume missing dimensions.
+
+## 4. Substructure Scope
+
+Initially, focus exclusively on substructure.
+
+Investigate and support the following work categories where applicable:
+
+### A. Earthwork
+- Site excavation.
+- Foundation excavation.
+- Excavation in trenches.
+- Excavation in pits.
+- Additional excavation.
+- Backfilling.
+- Filling with selected earth.
+- Disposal of excavated earth.
+- Compaction.
+
+### B. Foundation Work
+- PCC below foundations.
+- Isolated footings.
+- Combined footings.
+- Strip foundations.
+- Raft foundations.
+- Pile caps.
+- Pile foundations.
+- Foundation pedestals.
+
+### C. Concrete Work
+- Levelling concrete.
+- Plain cement concrete.
+- Reinforced cement concrete.
+- Footing concrete.
+- Column starter concrete.
+- Pedestal concrete.
+- Grade beam concrete.
+- Plinth beam concrete.
+
+### D. Reinforcement Work
+- Reinforcement steel.
+- Main bars.
+- Distribution bars.
+- Stirrups.
+- Ties.
+- Lap lengths.
+- Anchorage.
+- Hooks.
+- Bending deductions and additions according to the reference book.
+
+### E. Formwork
+- Footing formwork.
+- Pedestal formwork.
+- Column starter formwork.
+- Beam formwork.
+- Side shuttering.
+- Other applicable shuttering work.
+
+### F. Other Applicable Work
+Identify any additional substructure items required by the reference book.
+
+Do not assume that every item can be extracted directly from Revit. Identify items requiring additional project information or manual input.
+
+## 5. Revit Model Data Extraction
+
+Use the Revit API or pyRevit to extract the following information:
+
+- Element ID.
+- Family name.
+- Family type.
+- Category.
+- Level.
+- Workset.
+- Material.
+- Length.
+- Width.
+- Height.
+- Area.
+- Volume.
+- Location.
+- Mark.
+- Type parameters.
+- Instance parameters.
+- Reinforcement information.
+- Element geometry.
+
+Investigate relevant Revit API classes and methods, including:
+
+- FilteredElementCollector.
+- BuiltInCategory.
+- Element.
+- FamilyInstance.
+- Parameter.
+- Solid.
+- GeometryElement.
+- GeometryInstance.
+- Rebar.
+- RebarBarType.
+- RebarShape.
+- ElementId.
+
+Use actual model geometry and parameters wherever possible.
+
+Do not rely only on manually entered parameters when actual geometry is available.
+
+## 6. Measurement and Calculation Engine
+
+Create a separate measurement engine.
+
+For every BOQ item, define:
+
+1. Item code.
+2. Item description.
+3. Revit element categories.
+4. Required parameters.
+5. Measurement unit.
+6. Calculation formula.
+7. Applicable measurement rule.
+8. Deductions.
+9. Exclusions.
+10. Quantity aggregation method.
+11. Required manual inputs.
+
+Example calculation structure:
+
+| Item | Measurement | Unit |
+|---|---|---|
+| PCC | Length × Width × Thickness | m³ |
+| RCC footing | Actual concrete volume | m³ |
+| Excavation | Excavation length × width × depth, adjusted for applicable rules | m³ |
+| Formwork | Applicable exposed surface area | m² |
+| Reinforcement | Calculated bar length × unit weight | kg |
+
+These are illustrative calculations, not final measurement rules. Verify every formula against the reference book.
+
+Maintain separate calculations for gross quantity, deductions, and net quantity.
+
+## 7. BOQ Output Format
+
+Generate a professional Excel BOQ containing:
+
+| Sr. No. | Item Code | Description | Location/Level | Nos. | Length | Width | Height/Depth | Quantity | Unit | Rate | Amount |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+
+Also generate supporting sheets:
+
+- BOQ Summary.
+- Detailed Quantity Calculations.
+- Element-wise Extraction.
+- Measurement Rules.
+- Manual Inputs.
+- Assumptions and Exclusions.
+- Validation and Error Report.
+
+Every BOQ quantity must be traceable to its corresponding Revit element or calculation record.
+
+## 8. System Architecture
+
+Design the system with these components:
+
+1. Revit Data Extraction Module.
+2. Element Classification Module.
+3. Parameter and Geometry Extraction Module.
+4. Measurement Rules Engine.
+5. Quantity Calculation Engine.
+6. BOQ Description Generator.
+7. Quantity Validation Module.
+8. Excel BOQ Export Module.
+
+Prefer Python and pyRevit for initial development. Use the Revit API wherever required.
+
+Keep extraction, calculation, measurement rules, and Excel generation as separate modules.
+
+## 9. Accuracy and Validation
+
+Accuracy is the highest priority.
+
+The system must:
+
+- Avoid duplicate element counting.
+- Detect missing parameters.
+- Identify unclassified elements.
+- Identify elements with invalid geometry.
+- Prevent incorrect unit conversions.
+- Maintain Revit element IDs for traceability.
+- Identify manually calculated quantities.
+- Report assumptions and exclusions.
+- Validate quantities against sample calculations.
+- Allow manual correction and recalculation.
+
+Never silently generate quantities when required data is missing.
+
+## 10. Development Workflow
+
+Follow these stages:
+
+**Stage 1: Reference Analysis**
+Study the reference book and sample BOQ. Extract the applicable measurement rules.
+
+**Stage 2: BOQ Breakdown**
+Create a complete substructure BOQ item list and map each item to the relevant Revit categories and parameters.
+
+**Stage 3: Calculation Methodology**
+Define the exact calculation method for each item, including formulas, deductions, and units.
+
+**Stage 4: Revit Extraction**
+Design and implement the Revit data extraction module.
+
+**Stage 5: Measurement Engine**
+Implement the measurement rules and calculation engine.
+
+**Stage 6: BOQ Generation**
+Generate Excel BOQ with detailed calculations and traceability.
+
+**Stage 7: Testing**
+Test against my sample BOQ and manually verified Revit quantities.
+
+**Stage 8: Final Implementation**
+Provide production-ready architecture, module structure, implementation steps, and code.
+
+## 11. Important Instructions
+
+- Do not start coding immediately.
+- First analyze the reference book and sample BOQ.
+- Do not assume measurement standards.
+- Do not invent missing information.
+- Do not use generic BOQ formulas without validating them.
+- Distinguish between quantities directly available in Revit and quantities requiring calculation.
+- Clearly identify information that Revit cannot provide independently.
+- Explain every calculation with a worked example.
+- Maintain a complete audit trail from Revit element to final BOQ quantity.
+
+## Expected First Deliverable
+
+Before writing any code, provide:
+
+1. Reference book analysis.
+2. Complete substructure BOQ item classification.
+3. Revit element-to-BOQ mapping table.
+4. Measurement rule for each BOQ item.
+5. Required Revit parameters.
+6. Exact calculation formulas.
+7. Missing information and manual input requirements.
+8. Proposed system architecture.
+9. Testing and validation strategy.
+
+Wait for my approval before proceeding to implementation.
